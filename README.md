@@ -2,21 +2,30 @@
 
 ### Pages:
 
-Home
-Services
-Guides
-Contact
+* Home
+
+* Services
+
+* Guides
+
+* Contact
 
 
 ### Features:
 
-Haml
-Compass/Sass
-CoffeeScript
-Twitter-Bootstrap (bootstrap-sass)
-JQuery
-LiveReload
-MultiMarkdown
+* Haml
+
+* Compass/Sass
+
+* CoffeeScript
+
+* Twitter-Bootstrap (bootstrap-sass)
+
+* JQuery
+
+* LiveReload
+
+* MultiMarkdown
 
 ### Issues:
 
