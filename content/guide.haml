@@ -1,0 +1,7 @@
+- sorted_articles.each do |guide|
+  .guide
+    %h2= link_to guide[:title], guide.path
+    %aside
+      Posted at: #{guide[:created_at]}
+    %article
+      = get_guide_start(guide)

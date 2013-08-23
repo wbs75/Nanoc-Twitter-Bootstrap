@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+compile '/stylesheets/*/' do
+   filter :sass, Compass.sass_engine_options
+end
+
+compile '/javascripts/*/' do
+  case item[:extension]
+  when 'coffee'
+    filter :coffee
+  when 'js'
+    # Nothing
+  end
+end
+
+compile '/guide/' do
+    filter :haml
+    layout 'default'
+end
+
+compile '/guides/*' do
+  filter :kramdown
+  layout 'default'
+  layout 'guide'
+end
+
+compile '/contact/' do
+    filter :haml
+    layout 'default'
+end
+
+compile '/services/' do
+    filter :haml
+    layout 'default'
+end
+
+compile '*' do
+  if item.binary?
+    # don’t filter binary items
+  else
+    filter :haml
+    layout 'default'
+  end
+end
+
+route '/stylesheets/*/' do
+   item.identifier.chop + '.css'
+end
+
+route '/javascripts/*/' do
+  item.identifier.chop + ".js"
+end
+
+route '/guide/' do
+  '/guide.html'
+end
+
+route '/guides/*' do
+  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
+  "/#{y}/#{m}/#{slug}/guide.html"
+end
+
+route '/contact/' do
+  '/contact.html'
+end
+
+route '/services/' do
+  '/services.html'
+end
+
+route '*' do
+  if item.binary? or item.raw_filename =~ /\.js\z/;
+    # Write item with identifier /foo/ to /foo.ext
+    item.identifier.chop + '.' + item[:extension]
+  else
+    item.identifier + 'index.html'
+  end
+end
+
+layout '*', :haml, { :format => :html5, :ugly => true }
+
